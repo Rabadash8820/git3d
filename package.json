@@ -1,0 +1,23 @@
+{
+  "name": "git3d",
+  "version": "0.0.0",
+  "description": "A tool for visualizing git commit graphs in 3D",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rabadash8820/git3d.git"
+  },
+  "keywords": [
+    "git",
+    "3d",
+    "commits",
+    "graph",
+    "three.js"
+  ],
+  "author": "Dan Vicarel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Rabadash8820/git3d/issues"
+  },
+  "homepage": "https://github.com/Rabadash8820/git3d#readme"
+}
