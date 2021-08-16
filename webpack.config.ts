@@ -21,6 +21,7 @@ const config: webpack.Configuration = {
         test: /\.hbs.html$/,
         loader: "html-loader",
         options: {
+          minimize:true,
           preprocessor: handlebarsPreprocessor,
         }
       },
