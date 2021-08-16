@@ -7,13 +7,17 @@
     "@tsconfig/recommended": "^1.0.1",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
+    "http-server": "^0.12.3",
     "prettier": "^2.3.2",
     "typescript": "^4.1.3",
   },
   "scripts": {
+    "generate-cert": "openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem -subj '/O=Organization'",
+    "prepare": "npm run generate-cert",
     "compile": "tsc --build src/",
     "recompile": "npm run clean  && npm run compile",
     "compile:watch": "npm run compile -- --watch",
+    "start": "http-server ./dist --ssl --cert cert.pem --key key.pem -c-1",
     "clean": "rm -rf dist/"
   },
   "repository": {
