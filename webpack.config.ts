@@ -1,15 +1,29 @@
 import * as webpack from "webpack";
+import Handlebars from "handlebars";
 import HtmlWebpackPlugin from "html-webpack-plugin";
+
+const BUILD_DATA = {
+  author: "Dan Vicarel",
+  projectName: "Git 3D",
+};
 
 const config: webpack.Configuration = {
   entry: "./src/index.ts",
-  output: { filename: "main.js" },
+  output: {
+    filename: "main.js",
+  },
   devtool: "inline-source-map",
-  plugins: [new HtmlWebpackPlugin({ template: "index.html" })],
+  plugins: [new HtmlWebpackPlugin({ template: "index.hbs.html" })],
   resolve: { extensions: ["", ".ts", ".js"] },
   module: {
     rules: [
-      { test: /\.html$/, loader: "html-loader" },
+      {
+        test: /\.hbs.html$/,
+        loader: "html-loader",
+        options: {
+          preprocessor: handlebarsPreprocessor,
+        }
+      },
       { test: /\.ts$/, loader: "ts-loader" },
       {
         test: /\.(scss|css)$/,
@@ -31,3 +45,14 @@ const config: webpack.Configuration = {
 };
 
 export default config;
+
+
+function handlebarsPreprocessor(content: any, loaderContext: any): string {
+  try {
+    return Handlebars.compile(content)(BUILD_DATA);
+  }
+  catch (error) {
+    loaderContext.emitError(error);
+    return content;
+  }
+}

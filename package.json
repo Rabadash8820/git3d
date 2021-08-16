@@ -12,6 +12,7 @@
     "css-loader": "^6.2.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
+    "handlebars": "^4.7.7",
     "html-loader": "^2.1.2",
     "html-webpack-plugin": "^5.3.2",
     "postcss": "^8.3.6",
@@ -28,6 +29,7 @@
     "webpack-dev-server": "^3.11.2"
   },
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack build --mode ${NODE_ENV:-development}",
     "rebuild": "npm run clean && npm run build",
     "serve": "webpack serve --mode ${NODE_ENV:-development}",
