@@ -1,3 +1,6 @@
+import './main.scss';
+import 'bootstrap/js/dist/offcanvas';
+
 import { TestNodeProvider } from "./TestNodeProvider";
 import { DomNodeRenderer } from "./Rendering";
 import { INodeRenderer, Node } from "./Rendering/Abstractions";

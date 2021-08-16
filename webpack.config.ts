@@ -11,6 +11,15 @@ const config: webpack.Configuration = {
     rules: [
       { test: /\.html$/, loader: "html-loader" },
       { test: /\.ts$/, loader: "ts-loader" },
+      {
+        test: /\.(scss|css)$/,
+        use: [
+          "style-loader",
+          "css-loader",
+          "postcss-loader",
+          "sass-loader"
+        ]
+      }
     ],
   },
   stats: { errorDetails: true },
