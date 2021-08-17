@@ -1,5 +1,6 @@
 import * as webpack from "webpack";
 import fs from "fs";
+import readdirRecursive from "recursive-readdir";
 import Handlebars from "handlebars";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 
@@ -16,7 +17,7 @@ const BUILD_DATA = {
 
 export default async () => {
 
-  const partialsDir = "./src";
+  const partialsDir = "src/";
   const hbsExt = ".hbs.html";
   await registerHandlebarsPartials(partialsDir, hbsExt);
 
@@ -40,7 +41,7 @@ export default async () => {
         },
         { test: /\.ts$/, loader: "ts-loader" },
         {
-          test: /\.(scss|css)$/,
+          test: /\.s?css$/,
           use: [
             "style-loader",
             "css-loader",
@@ -63,18 +64,13 @@ export default async () => {
 
 
 async function registerHandlebarsPartials(partialsDir: string, handlebarsExtension: string): Promise<void> {
-  const filenames = await fs.promises.readdir(partialsDir);
+  const filenames = await readdirRecursive(partialsDir);
   const hbsFilenames = filenames.filter(x => x.endsWith(handlebarsExtension));
-  (await Promise.all(
-    hbsFilenames.map(x => fs.promises.readFile(`${partialsDir}/${x}`, "utf8"))
-  ))
-  .map((partial, index) => {
-    const filename = hbsFilenames[index];
-    return {
-      name: filename.substring(0, filename.length - handlebarsExtension.length),
+  (await Promise.all(hbsFilenames.map(x => fs.promises.readFile(x, "utf8"))))
+  .map((partial, index) => ({
+      name: hbsFilenames[index].replace(partialsDir, "").replace(handlebarsExtension, ""),
       partial: partial
-    };
-  })
+  }))
   .forEach(x => Handlebars.registerPartial(x.name, x.partial));
 }
 
