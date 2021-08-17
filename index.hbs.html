@@ -4,22 +4,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{projectName}}</title>
+  <title>{{title}}</title>
 </head>
 
 <body>
   <div class="container">
-    <h1>{{projectName}}!</h1>
-
-    <button class="js-btn-start">Start!</button>
-
-    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#settingsMenu"
-      aria-controls="settingsMenu">
-      Settings
-    </button>
-
-    <div class="js-output"></div>
-
+    <header>{{#navbar}}{{> navbar}}{{/navbar}}</header>
+    <main>{{#main}}{{> main}}{{/main}}</main>
+    <footer>{{#footer}}{{> footer}}{{/footer}}</footer>
   </div>
 </body>
 

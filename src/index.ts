@@ -1,5 +1,5 @@
 import './main.scss';
-import 'bootstrap/js/dist/offcanvas';
+import 'bootstrap/js/dist/collapse';
 
 import { TestNodeProvider } from "./TestNodeProvider";
 import { DomNodeRenderer } from "./Rendering";
