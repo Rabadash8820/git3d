@@ -7,12 +7,18 @@
   <title>{{title}}</title>
 </head>
 
-<body>
-  <div class="container">
-    <header>{{#navbar}}{{> navbar}}{{/navbar}}</header>
+<body class="d-flex">
+
+  <nav id="settingsMenu" class="border-end bg-white">
+    {{> SettingsMenu/index}}
+  </nav>
+
+  <div id="page-content-wrapper">
+    <header class="container-fluid">{{#navbar}}{{> navbar}}{{/navbar}}</header>
     <main>{{#main}}{{> main}}{{/main}}</main>
     <footer>{{#footer}}{{> footer}}{{/footer}}</footer>
   </div>
+
 </body>
 
 </html>

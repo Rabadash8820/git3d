@@ -11,6 +11,12 @@ document
     await loadNodes();
   });
 
+// Toggle the side navigation
+document.body.querySelector('#sidebarToggle')?.addEventListener('click', event => {
+    event.preventDefault();
+    document.body.classList.toggle('sb-sidenav-toggled');
+});
+
 async function loadNodes() {
   const nodeProvider = new TestNodeProvider();
   const nodeRenderer: INodeRenderer = new DomNodeRenderer();
