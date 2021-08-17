@@ -3,11 +3,14 @@ import fs from "fs";
 import readdirRecursive from "recursive-readdir";
 import Handlebars from "handlebars";
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import feather from "feather-icons";
 
 const BUILD_DATA = {
   title: "Git 3D",
   navbar: {
     mainHeading: "Git 3D",
+    settingsMenuBtnLbl: "Settings",
+    settingsMenuBtnIcon: feather.icons.settings.toSvg(),
   },
   main: {},
   footer: {
