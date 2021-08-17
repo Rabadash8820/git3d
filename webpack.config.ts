@@ -19,7 +19,6 @@ const BUILD_DATA = {
 };
 
 export default async () => {
-
   const partialsDir = "src/";
   const hbsExt = ".hbs.html";
   await registerHandlebarsPartials(partialsDir, hbsExt);
@@ -38,50 +37,48 @@ export default async () => {
           test: new RegExp(`\.${hbsExt}$`),
           loader: "html-loader",
           options: {
-            minimize:true,
+            minimize: true,
             preprocessor: handlebarsPreprocessor,
-          }
+          },
         },
         { test: /\.ts$/, loader: "ts-loader" },
         {
           test: /\.s?css$/,
-          use: [
-            "style-loader",
-            "css-loader",
-            "postcss-loader",
-            "sass-loader"
-          ]
-        }
+          use: ["style-loader", "css-loader", "postcss-loader", "sass-loader"],
+        },
       ],
     },
     stats: { errorDetails: true },
-    devServer:{
+    devServer: {
       contentBase: "dist",
       https: true,
       open: true,
-    }
-  }
+    },
+  };
 
   return config;
 };
 
-
-async function registerHandlebarsPartials(partialsDir: string, handlebarsExtension: string): Promise<void> {
+async function registerHandlebarsPartials(
+  partialsDir: string,
+  handlebarsExtension: string
+): Promise<void> {
   const filenames = await readdirRecursive(partialsDir);
-  const hbsFilenames = filenames.filter(x => x.endsWith(handlebarsExtension));
-  (await Promise.all(hbsFilenames.map(x => fs.promises.readFile(x, "utf8"))))
-  .map((partial, index) => ({
-      name: hbsFilenames[index].replace(partialsDir, "").replace(handlebarsExtension, ""),
-      partial: partial
-  }))
-  .forEach(x => Handlebars.registerPartial(x.name, x.partial));
+  const hbsFilenames = filenames.filter((x) => x.endsWith(handlebarsExtension));
+  (await Promise.all(hbsFilenames.map((x) => fs.promises.readFile(x, "utf8"))))
+    .map((partial, index) => ({
+      name: hbsFilenames[index]
+        .replace(partialsDir, "")
+        .replace(handlebarsExtension, ""),
+      partial: partial,
+    }))
+    .forEach((x) => Handlebars.registerPartial(x.name, x.partial));
 }
 
 function handlebarsPreprocessor(content: any, loaderContext: any): string {
   try {
     return Handlebars.compile(content)(BUILD_DATA);
-  }
-  catch (error) {
+  } catch (error) {
     loaderContext.emitError(error);
     return content;
   }
