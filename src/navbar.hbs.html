@@ -7,15 +7,13 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                {{#links}}
                 <li class="nav-item">
-                    <a class="nav-link" href="#">{{aboutBtnLbl}}</a>
+                    <a class="nav-link" href="{{href}}"{{#external}} target="_blank" rel="noopener noreferrer"{{/external}}>
+                        {{{icon}}} {{label}} {{#external}}{{{../externalLinkIcon}}}{{/external}}
+                    </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">{{supportBtnLbl}}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">{{sourceBtnLbl}}</a>
-                </li>
+                {{/links}}
             </ul>
             <div class="d-flex">
                 <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#optionsMenu" aria-expanded="true" aria-controls="optionsMenu" title="{{optionsMenuBtnLbl}}" aria-label="{{optionsMenuBtnLbl}}">

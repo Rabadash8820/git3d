@@ -43,6 +43,10 @@
     "type": "git",
     "url": "git+https://github.com/Rabadash8820/git3d.git"
   },
+  "funding": {
+    "type": "individual",
+    "url": "http://example.com/donate"
+  },
   "keywords": [
     "git",
     "3d",

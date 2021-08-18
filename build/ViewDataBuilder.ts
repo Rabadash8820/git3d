@@ -3,6 +3,7 @@ import npmConfig from "../package.json";
 
 export default class ViewDataBuilder {
   private static readonly LBL_CLOSE: string = "Close";
+  private static readonly ICON_INFO: string = feather.icons["info"].toSvg();
 
   public BuildViewData(): Promise<unknown> {
     return Promise.resolve({
@@ -26,7 +27,7 @@ export default class ViewDataBuilder {
         },
         {
           level: "info",
-          icon: feather.icons["info"].toSvg(),
+          icon: ViewDataBuilder.ICON_INFO,
           message: "Everything should be fine",
           closeBtnLbl: ViewDataBuilder.LBL_CLOSE,
         },
@@ -34,9 +35,27 @@ export default class ViewDataBuilder {
       navbar: {
         mainHeading: "Git 3D",
         toggleBtnLbl: "Toggle navigation",
-        aboutBtnLbl: "About",
-        supportBtnLbl: "Support",
-        sourceBtnLbl: "Source",
+        externalLinkIcon: feather.icons["external-link"].toSvg(),
+        links: [
+          {
+            icon: ViewDataBuilder.ICON_INFO,
+            label: "About",
+            href: "#",
+            external: false,
+          },
+          {
+            icon: feather.icons["dollar-sign"].toSvg(),
+            label: "Support",
+            href: npmConfig.funding.url,
+            external: true,
+          },
+          {
+            icon: feather.icons["code"].toSvg(),
+            label: "Source",
+            href: npmConfig.repository.url,
+            external: true,
+          },
+        ],
         optionsMenuBtnLbl: "Toggle options menu",
         optionsMenuBtnIcon: feather.icons["menu"].toSvg(),
       },
