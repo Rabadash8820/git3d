@@ -50,7 +50,11 @@
     "graph",
     "three.js"
   ],
-  "author": "Dan Vicarel",
+  "author": {
+    "name": "Dan Vicarel",
+    "email": "shundra8820@gmail.com",
+    "url": "https://www.linkedin.com/in/daniel-vicarel/"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Rabadash8820/git3d/issues"

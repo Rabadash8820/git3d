@@ -4,6 +4,7 @@ import readdirRecursive from "recursive-readdir";
 import Handlebars from "handlebars";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import feather from "feather-icons";
+import npmConfig from "./package.json";
 
 const BUILD_DATA = {
   title: "Git 3D",
@@ -31,7 +32,7 @@ const BUILD_DATA = {
   },
   optionsMenu: {},
   footer: {
-    author: "Dan Vicarel",
+    author: npmConfig.author.name,
   },
 };
 
