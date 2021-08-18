@@ -7,6 +7,23 @@ import feather from "feather-icons";
 
 const BUILD_DATA = {
   title: "Git 3D",
+  alerts: [
+    {
+      level: "danger",
+      icon: feather.icons["alert-octagon"].toSvg({ "aria-label": "Danger:" }),
+      message: "Everything's broken!",
+    },
+    {
+      level: "warning",
+      icon: feather.icons["alert-triangle"].toSvg({ "aria-label": "Warning:" }),
+      message: "Everything is probably broken",
+    },
+    {
+      level: "info",
+      icon: feather.icons["info"].toSvg(),
+      message: "Everything should be fine",
+    },
+  ],
   navbar: {
     mainHeading: "Git 3D",
     settingsMenuBtnLbl: "Settings",

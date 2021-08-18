@@ -1,5 +1,6 @@
-import './main.scss';
-import 'bootstrap/js/dist/collapse';
+import "./main.scss";
+import "bootstrap/js/dist/alert";
+import "bootstrap/js/dist/collapse";
 
 import { TestNodeProvider } from "./TestNodeProvider";
 import { DomNodeRenderer } from "./Rendering";

@@ -9,6 +9,13 @@
 
 <body class="d-flex">
 
+  {{#alerts}}
+    <div class="alert alert-{{level}} alert-dismissible mb-0 fade show" role="alert">
+      {{{icon}}} {{message}}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  {{/alerts}}
+
   <nav id="settingsMenu" class="border-end bg-white">
     {{> SettingsMenu}}
   </nav>
