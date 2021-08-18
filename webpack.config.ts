@@ -3,43 +3,13 @@ import fs from "fs";
 import readdirRecursive from "recursive-readdir";
 import Handlebars from "handlebars";
 import HtmlWebpackPlugin from "html-webpack-plugin";
-import feather from "feather-icons";
-import npmConfig from "./package.json";
-
-const BUILD_DATA = {
-  title: "Git 3D",
-  alerts: [
-    {
-      level: "danger",
-      icon: feather.icons["alert-octagon"].toSvg({ "aria-label": "Danger:" }),
-      message: "Everything's broken!",
-    },
-    {
-      level: "warning",
-      icon: feather.icons["alert-triangle"].toSvg({ "aria-label": "Warning:" }),
-      message: "Everything is probably broken",
-    },
-    {
-      level: "info",
-      icon: feather.icons["info"].toSvg(),
-      message: "Everything should be fine",
-    },
-  ],
-  navbar: {
-    mainHeading: "Git 3D",
-    optionsMenuBtnLbl: "Toggle options menu",
-    optionsMenuBtnIcon: feather.icons["menu"].toSvg(),
-  },
-  optionsMenu: {},
-  footer: {
-    author: npmConfig.author.name,
-  },
-};
+import ViewDataBuilder from "./build/ViewDataBuilder";
 
 export default async () => {
-  const partialsDir = "src/";
   const hbsExt = ".hbs.html";
-  await registerHandlebarsPartials(partialsDir, hbsExt);
+  await registerHandlebarsPartials("src/", hbsExt);
+
+  const viewData = await new ViewDataBuilder().BuildViewData();
 
   const config: webpack.Configuration = {
     entry: "./src/index.ts",
@@ -56,7 +26,8 @@ export default async () => {
           loader: "html-loader",
           options: {
             minimize: true,
-            preprocessor: handlebarsPreprocessor,
+            preprocessor: (content: any, loaderContext: any) =>
+              handlebarsPreprocessor(content, loaderContext, viewData),
           },
         },
         { test: /\.ts$/, loader: "ts-loader" },
@@ -98,9 +69,13 @@ async function registerHandlebarsPartials(
     .forEach((x) => Handlebars.registerPartial(x.name, x.partial));
 }
 
-function handlebarsPreprocessor(content: any, loaderContext: any): string {
+function handlebarsPreprocessor(
+  content: any,
+  loaderContext: any,
+  viewData: unknown
+): string {
   try {
-    return Handlebars.compile(content)(BUILD_DATA);
+    return Handlebars.compile(content)(viewData);
   } catch (error) {
     loaderContext.emitError(error);
     return content;

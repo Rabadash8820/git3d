@@ -1,0 +1,6 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true // We run build scripts through Webpack with ts-node, so emitting transpiled code is unnecessary
+  }
+}
