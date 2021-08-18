@@ -66,12 +66,17 @@ async function registerHandlebarsPartials(
   const filenames = await readdirRecursive(partialsDir);
   const hbsFilenames = filenames.filter((x) => x.endsWith(handlebarsExtension));
   (await Promise.all(hbsFilenames.map((x) => fs.promises.readFile(x, "utf8"))))
-    .map((partial, index) => ({
-      name: hbsFilenames[index]
+    .map((partial, index) => {
+      const path = hbsFilenames[index]
         .replace(partialsDir, "")
-        .replace(handlebarsExtension, ""),
-      partial: partial,
-    }))
+        .replace(handlebarsExtension, "");
+      return {
+        name: path.endsWith("/index")
+          ? path.substring(0, path.length - 6)
+          : path,
+        partial: partial,
+      };
+    })
     .forEach((x) => Handlebars.registerPartial(x.name, x.partial));
 }
 
