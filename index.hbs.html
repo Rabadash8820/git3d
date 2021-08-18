@@ -7,7 +7,7 @@
   <title>{{title}}</title>
 </head>
 
-<body class="d-flex">
+<body class="d-flex flex-column vh-100">
 
   {{#alerts}}
     <div class="alert alert-{{level}} alert-dismissible mb-0 fade show" role="alert">
@@ -16,14 +16,28 @@
     </div>
   {{/alerts}}
 
-  <nav id="settingsMenu" class="border-end bg-white">
-    {{> SettingsMenu}}
-  </nav>
+  {{#navbar}}
+    <header>
+      {{> navbar}}
+    </header>
+  {{/navbar}}
 
-  <div id="page-content-wrapper">
-    <header class="container-fluid">{{#navbar}}{{> navbar}}{{/navbar}}</header>
-    <main>{{#main}}{{> main}}{{/main}}</main>
-    <footer>{{#footer}}{{> footer}}{{/footer}}</footer>
+  <div class="flex-grow-1 d-flex">
+
+    <div class="flex-grow-1 d-flex flex-column">
+
+      <main class="flex-grow-1 bg-dark"></main>
+
+      {{#footer}}
+        <footer>{{> footer}}</footer>
+      {{/footer}}
+
+    </div>
+
+    {{#optionsMenu}}
+        {{> OptionsMenu}}
+    {{/optionsMenu}}
+
   </div>
 
 </body>

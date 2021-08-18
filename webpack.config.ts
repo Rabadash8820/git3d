@@ -26,10 +26,10 @@ const BUILD_DATA = {
   ],
   navbar: {
     mainHeading: "Git 3D",
-    settingsMenuBtnLbl: "Settings",
-    settingsMenuBtnIcon: feather.icons.settings.toSvg(),
+    optionsMenuBtnLbl: "Toggle options menu",
+    optionsMenuBtnIcon: feather.icons["menu"].toSvg(),
   },
-  main: {},
+  optionsMenu: {},
   footer: {
     author: "Dan Vicarel",
   },
