@@ -3,3 +3,7 @@
 .g3d-options-menu {
   width: 15%;
 }
+
+.g3d-mh-0 {
+  min-height: 0 !important; // Bootstrap has "mh-100" class for max-height: 100; so this achieves the "opposite"
+}
