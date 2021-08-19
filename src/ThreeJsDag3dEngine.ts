@@ -7,7 +7,7 @@ export class ThreeJsDag3dEngine implements IDag3dEngine {
   private readonly scene: Three.Scene = new Three.Scene();
   private readonly camera: Three.PerspectiveCamera;
 
-  private cube: Three.Mesh | null = null;
+  private static readonly NUM_NODES = 5;
 
   public constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
@@ -26,11 +26,28 @@ export class ThreeJsDag3dEngine implements IDag3dEngine {
   }
 
   public InitializeAsync(): Promise<void> {
-    this.cube = new Three.Mesh(
-      new Three.BoxGeometry(),
-      new Three.MeshBasicMaterial({ color: 0x00ff00 })
+    // Add circles to scene
+    const circleGeo = new Three.CircleGeometry(1, 16);
+    const circleMat = new Three.MeshBasicMaterial({ color: 0x00ff00 });
+    const circles: Three.Mesh[] = new Array<Three.Mesh>(
+      ThreeJsDag3dEngine.NUM_NODES
     );
-    this.scene.add(this.cube);
+    for (let x = 0; x < ThreeJsDag3dEngine.NUM_NODES; ++x) {
+      const circle = new Three.Mesh(circleGeo, circleMat);
+      circle.name = `circle-${x}`;
+      circle.position.x = 2 * x;
+      circle.position.y = Math.random();
+      circles[x] = circle;
+      this.scene.add(circle);
+    }
+
+    // Add connecting line to scene
+    const lineMat = new Three.LineBasicMaterial({ color: 0xff0000 });
+    const lineGeo = new Three.BufferGeometry().setFromPoints(
+      circles.map((x) => x.position)
+    );
+    const line = new Three.Line(lineGeo, lineMat);
+    this.scene.add(line);
 
     this.camera.position.z = 5;
 
@@ -47,10 +64,6 @@ export class ThreeJsDag3dEngine implements IDag3dEngine {
       this.camera.updateProjectionMatrix();
     }
 
-    if (this.cube) {
-      this.cube.rotation.x += 0.01;
-      this.cube.rotation.y += 0.01;
-    }
     this.renderer.render(this.scene, this.camera);
   }
 }
