@@ -1,13 +1,24 @@
-import * as Three from "three";
+import {
+  BufferGeometry,
+  CircleGeometry,
+  Line,
+  LineBasicMaterial,
+  Mesh,
+  MeshBasicMaterial,
+  OrthographicCamera,
+  PerspectiveCamera,
+  Scene,
+  WebGLRenderer,
+} from "three";
 import { IDag3dEngine } from "./Abstractions";
 import { OrbitControls } from "./OrbitControls";
 
 export class ThreeJsDag3dEngine implements IDag3dEngine {
   private readonly canvas: HTMLCanvasElement;
-  private readonly renderer: Three.WebGLRenderer;
-  private readonly scene: Three.Scene = new Three.Scene();
-  private readonly perspectiveCamera: Three.PerspectiveCamera;
-  private readonly orthographicCamera: Three.OrthographicCamera;
+  private readonly renderer: WebGLRenderer;
+  private readonly scene = new Scene();
+  private readonly perspectiveCamera: PerspectiveCamera;
+  private readonly orthographicCamera: OrthographicCamera;
 
   private controls: OrbitControls | null = null;
 
@@ -16,18 +27,18 @@ export class ThreeJsDag3dEngine implements IDag3dEngine {
   public constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
 
-    this.renderer = new Three.WebGLRenderer({
+    this.renderer = new WebGLRenderer({
       canvas: this.canvas,
       antialias: true,
     });
 
     const aspect = this.canvas.width / this.canvas.height;
-    this.perspectiveCamera = new Three.PerspectiveCamera(75, aspect, 0.1, 1000);
+    this.perspectiveCamera = new PerspectiveCamera(75, aspect, 0.1, 1000);
 
     const frustumHeight = 10;
     const halfWidth = (frustumHeight * aspect) / 2;
     const halfHeight = frustumHeight / 2;
-    this.orthographicCamera = new Three.OrthographicCamera(
+    this.orthographicCamera = new OrthographicCamera(
       -halfWidth,
       halfWidth,
       halfHeight,
@@ -41,13 +52,11 @@ export class ThreeJsDag3dEngine implements IDag3dEngine {
 
   public InitializeAsync(): Promise<void> {
     // Add circles to scene
-    const circleGeo = new Three.CircleGeometry(1, 16);
-    const circleMat = new Three.MeshBasicMaterial({ color: 0x00ff00 });
-    const circles: Three.Mesh[] = new Array<Three.Mesh>(
-      ThreeJsDag3dEngine.NUM_NODES
-    );
+    const circleGeo = new CircleGeometry(1, 16);
+    const circleMat = new MeshBasicMaterial({ color: 0x00ff00 });
+    const circles: Mesh[] = new Array<Mesh>(ThreeJsDag3dEngine.NUM_NODES);
     for (let x = 0; x < ThreeJsDag3dEngine.NUM_NODES; ++x) {
-      const circle = new Three.Mesh(circleGeo, circleMat);
+      const circle = new Mesh(circleGeo, circleMat);
       circle.name = `circle-${x}`;
       circle.position.x = 2 * x;
       circle.position.y = Math.random();
@@ -56,11 +65,11 @@ export class ThreeJsDag3dEngine implements IDag3dEngine {
     }
 
     // Add connecting line to scene
-    const lineMat = new Three.LineBasicMaterial({ color: 0xff0000 });
-    const lineGeo = new Three.BufferGeometry().setFromPoints(
+    const lineMat = new LineBasicMaterial({ color: 0xff0000 });
+    const lineGeo = new BufferGeometry().setFromPoints(
       circles.map((x) => x.position)
     );
-    const line = new Three.Line(lineGeo, lineMat);
+    const line = new Line(lineGeo, lineMat);
     this.scene.add(line);
 
     // Position camera
@@ -116,6 +125,6 @@ export class ThreeJsDag3dEngine implements IDag3dEngine {
     this.orthographicCamera.bottom = -halfHeight;
     this.orthographicCamera.updateProjectionMatrix();
 
-    this.renderer.setSize(newWidth, newHeight, false); // Must pass false here or three.js sadly fights the browser
+    this.renderer.setSize(newWidth, newHeight, false); // Must pass false here or js sadly fights the browser
   }
 }
