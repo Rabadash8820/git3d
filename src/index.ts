@@ -16,6 +16,13 @@ document.addEventListener("DOMContentLoaded", async (e) => {
 
   function animate() {
     requestAnimationFrame(animate);
+
+    // Resize render area to fit canvas
+    const newWidth = canvas.offsetWidth;
+    const newHeight = canvas.offsetHeight;
+    if (canvas.width !== newWidth || canvas.height !== newHeight)
+      dag3dEngine.ResizeRenderArea(newWidth, newHeight);
+
     dag3dEngine.Update();
   }
   animate();

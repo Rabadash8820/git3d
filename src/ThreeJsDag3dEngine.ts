@@ -96,12 +96,6 @@ export class ThreeJsDag3dEngine implements IDag3dEngine {
   }
 
   public Update() {
-    // Fit canvas to display
-    const newWidth = this.canvas.offsetWidth;
-    const newHeight = this.canvas.offsetHeight;
-    if (this.canvas.width !== newWidth || this.canvas.height !== newHeight)
-      this.handleResize(newWidth, newHeight);
-
     this.controls?.update();
 
     const camera = ThreeJsDag3dEngine.USE_PERSPECTIVE
@@ -110,7 +104,7 @@ export class ThreeJsDag3dEngine implements IDag3dEngine {
     this.renderer.render(this.scene, camera);
   }
 
-  private handleResize(newWidth: number, newHeight: number) {
+  public ResizeRenderArea(newWidth: number, newHeight: number) {
     const newAspect = newWidth / newHeight;
 
     this.perspectiveCamera.aspect = newWidth / newHeight;
