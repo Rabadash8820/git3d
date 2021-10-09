@@ -60,8 +60,33 @@ export default class ViewDataBuilder {
         optionsMenuBtnIcon: feather.icons["menu"].toSvg(),
       },
       optionsMenu: {
-        description:
-          "This is some placeholder content for a horizontal collapse. It's hidden by default and shown when triggered.",
+        mainHeading: {
+          icon: null,
+          text: "Options",
+        },
+        forms: [
+          {
+            name: "repo",
+            heading: {
+              text: "Repository",
+              icon: feather.icons["folder"].toSvg(),
+            },
+          },
+          {
+            name: "display",
+            heading: {
+              text: "Display",
+              icon: feather.icons["monitor"].toSvg(),
+            },
+          },
+          {
+            name: "input",
+            heading: {
+              text: "Input",
+              icon: feather.icons["mouse-pointer"].toSvg(),
+            },
+          }
+        ],
       },
       footer: {
         copyright: `Copyright © ${npmConfig.author.name}`,

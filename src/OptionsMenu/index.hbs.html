@@ -1,11 +1,36 @@
 <div class="collapse show collapse-horizontal g3d-options-menu" id="optionsMenu">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">
 
-                <p>{{description}}</p>
+        {{#mainHeading}}
+          <h1>{{{icon}}} {{text}}</h1>
+        {{/mainHeading}}
 
+        <div class="accordion accordion-flush" id="options-accordion">
+          {{#forms}}
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="{{name}}-header">
+                {{#heading}}
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#{{../name}}-form"
+                    aria-expanded="true" aria-controls="{{../name}}-form">
+                    {{{icon}}} {{text}}
+                  </button>
+                {{/heading}}
+              </h2>
+              <div id="{{name}}-form" class="accordion-collapse collapse show" aria-labelledby="{{name}}-header" data-bs-parent="#options-accordion">
+                <div class="accordion-body">
+                  <form name="{{name}}">
+                    {{#controls}}
+                    {{/controls}}
+                  </form>
+                </div>
+              </div>
             </div>
+          {{/forms}}
         </div>
+
+      </div>
     </div>
+  </div>
 </div>
