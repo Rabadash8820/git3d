@@ -18,7 +18,7 @@
                   </button>
                 {{/heading}}
               </h2>
-              <div id="{{name}}-form" class="accordion-collapse collapse show" aria-labelledby="{{name}}-header" data-bs-parent="#options-accordion">
+              <div id="{{name}}-form" class="accordion-collapse collapse{{#show}} show{{/show}}" aria-labelledby="{{name}}-header" data-bs-parent="#options-accordion">
                 <div class="accordion-body">
                   <form name="{{name}}">
                     {{#controls}}

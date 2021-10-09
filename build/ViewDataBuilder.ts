@@ -71,6 +71,7 @@ export default class ViewDataBuilder {
               text: "Repository",
               icon: feather.icons["folder"].toSvg(),
             },
+            show: true,
           },
           {
             name: "display",
@@ -78,6 +79,7 @@ export default class ViewDataBuilder {
               text: "Display",
               icon: feather.icons["monitor"].toSvg(),
             },
+            show: false,
           },
           {
             name: "input",
@@ -85,6 +87,7 @@ export default class ViewDataBuilder {
               text: "Input",
               icon: feather.icons["mouse-pointer"].toSvg(),
             },
+            show: false,
           }
         ],
       },
